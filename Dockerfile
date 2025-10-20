@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY client/package.json client/yarn.lock client/
 RUN yarn install --frozen-lockfile
-COPY . .
+COPY client/ .
 RUN yarn build
 
 # Вторая стадия - только копирование статики
