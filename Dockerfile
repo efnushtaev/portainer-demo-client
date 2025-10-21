@@ -1,11 +1,19 @@
-# frontend/Dockerfile
-FROM node:18-alpine AS builder
-WORKDIR /app
+FROM node:18 AS builder
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    git
 
-COPY client/package.json client/yarn.lock client/
-RUN yarn install --frozen-lockfile
-COPY /client .
-RUN yarn build
+WORKDIR /app
+COPY client/package.json ./
+COPY client/package-lock.json ./
+
+RUN npm ci --include=dev
+
+COPY client/ ./
+RUN npm run build
+
 
 # Вторая стадия - только копирование статики
 FROM alpine:latest
