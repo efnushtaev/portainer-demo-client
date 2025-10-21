@@ -16,7 +16,7 @@ RUN npm run build
 
 
 # Вторая стадия - только копирование статики
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-WORKDIR /static
-COPY --from=builder /app/build ./
+# FROM alpine:latest
+# RUN apk --no-cache add ca-certificates
+# WORKDIR /app
+# COPY --from=builder /app/build ./build
