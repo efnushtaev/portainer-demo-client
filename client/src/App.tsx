@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { formatDate } from './utils/format-date';
 
 function App() {
   const [timestamp, setTimestamp] = useState('');
@@ -18,7 +19,7 @@ function App() {
   return (
     <div>
       <h1>Текущее время сервера:</h1>
-      <p>{timestamp || 'Загрузка...'}</p>
+      <p>{formatDate(timestamp) || 'Загрузка...'}</p>
     </div>
   );
 }
