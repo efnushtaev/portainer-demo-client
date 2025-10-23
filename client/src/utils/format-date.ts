@@ -1,4 +1,7 @@
-export function formatDate(isoString: string) {
+export function formatDate(isoString?: string) {
+  if(!isoString) {
+    return 'timestamp пустой'
+  }
   const date = new Date(isoString);
   
   // Проверка валидности даты
