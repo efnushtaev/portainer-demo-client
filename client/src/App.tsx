@@ -8,10 +8,19 @@ function App() {
     const fetchTimestamp = () => {
       fetch('/api/getTimestamp')
         .then(response => response.json())
-        .then(data => setTimestamp(data.timestamp));
+        .then(data => setTimestamp(data.timestamp))
+        .catch(error => console.error('Error fetching timestamp:', error));
+    };
+
+    const fetchUsers = () => {
+      fetch('/api/users')
+        .then(response => response.json())
+        .then(data => console.log('Users:', JSON.stringify(data)))
+        .catch(error => console.error('Error fetching users:', error));
     };
 
     fetchTimestamp();
+    fetchUsers()
     const interval = setInterval(fetchTimestamp, 10000);
     return () => clearInterval(interval);
   }, []);
