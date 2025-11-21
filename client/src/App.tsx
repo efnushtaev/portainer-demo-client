@@ -36,7 +36,7 @@ function App() {
   }, [])
 
   const handleOnClick = () => {
-    fetch('/api/count/1', {
+    fetch('/api/count/?id=1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json' // Указываем тип данных
