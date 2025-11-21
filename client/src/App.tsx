@@ -9,7 +9,9 @@ function App() {
     const fetchTimestamp = () => {
       fetch('/api/getTimestamp')
         .then(response => response.json())
-        .then(data => setTimestamp(data.timestamp))
+        .then(data => {
+          setTimestamp(data.timestamp)
+        })
         .catch(error => console.error('Error fetching timestamp:', error));
     };
 
@@ -22,7 +24,9 @@ function App() {
     const fetchClicks = () => {
       fetch('/api/getCount')
         .then(response => response.json())
-        .then(data => setClickCount(data.count))
+        .then(data => {
+          setClickCount(data[0].count_value)
+        })
         .catch(error => {
           console.error('Error fetching clicks:', error)
         });
@@ -32,7 +36,13 @@ function App() {
   }, [])
 
   const handleOnClick = () => {
-    fetch('/api/count/1', { method: 'POST' })
+    fetch('/api/count/1', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' // Указываем тип данных
+      },
+      body: JSON.stringify({ count: clickCount }) // Преобразуем объект в JSON-строку
+    })
       .then(response => response.json())
       .then(data => setClickCount(data.count))
       .catch(error => {
