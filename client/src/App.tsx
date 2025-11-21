@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { formatDate } from './utils/format-date';
+import { useState, useEffect } from 'react';
+import { formatDate, getZhamLabel } from './utils';
 
 function App() {
   const [timestamp, setTimestamp] = useState('');
+  const [clickCount, setClickCount] = useState(0);
 
   useEffect(() => {
     const fetchTimestamp = () => {
@@ -12,23 +13,46 @@ function App() {
         .catch(error => console.error('Error fetching timestamp:', error));
     };
 
-    const fetchUsers = () => {
-      fetch('/api/users')
-        .then(response => response.json())
-        .then(data => console.log('Users:', JSON.stringify(data)))
-        .catch(error => console.error('Error fetching users:', error));
-    };
-
     fetchTimestamp();
-    fetchUsers()
     const interval = setInterval(fetchTimestamp, 10000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const fetchClicks = () => {
+      fetch('/api/getClicks')
+        .then(response => response.json())
+        .then(data => setClickCount(data.count))
+        .catch(error => {
+          console.error('Error fetching clicks:', error)
+        });
+    };
+
+    fetchClicks()
+  }, [])
+
+  const handleOnClick = () => {
+    fetch('/api/click', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => setClickCount(data.count))
+      .catch(error => {
+        console.error('Error sending click:', error)
+      });
+  }
+
   return (
-    <div>
-      <h1>Текущее время сервера:</h1>
-      <p>{formatDate(timestamp) || 'Загрузка...'}</p>
+    <div className='wrapper'>
+      <div>
+        <h1>Время сервера:</h1>
+        <p>{formatDate(timestamp) || 'Загрузка...'}</p>
+        <div className='rotate-scale-up' />
+      </div>
+      <div>
+        <div className="click-me" onClick={handleOnClick}>
+          <h1>{clickCount}</h1>
+          <h2>{getZhamLabel(clickCount)}</h2>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export function formatDate(isoString?: string) {
   if(!isoString) {
-    return 'timestamp пустой'
+    return '12:34:56 • 12 Декабря 1999'
   }
   const date = new Date(isoString);
   
@@ -29,7 +29,7 @@ export function formatDate(isoString?: string) {
     ? month.slice(0, -1) + 'я'
     : month + 'а';
 
-  return `${time}   ${day} ${monthGenitive} ${year}`;
+  return `${time} • ${day} ${monthGenitive} ${year}`;
 }
 
 // Пример использования
