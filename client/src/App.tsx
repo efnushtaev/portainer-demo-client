@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     const fetchClicks = () => {
-      fetch('/api/getClicks')
+      fetch('/api/getCount')
         .then(response => response.json())
         .then(data => setClickCount(data.count))
         .catch(error => {
@@ -32,7 +32,7 @@ function App() {
   }, [])
 
   const handleOnClick = () => {
-    fetch('/api/click', { method: 'POST' })
+    fetch('/api/count/1', { method: 'POST' })
       .then(response => response.json())
       .then(data => setClickCount(data.count))
       .catch(error => {
