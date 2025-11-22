@@ -44,7 +44,9 @@ function App() {
       body: JSON.stringify({ count: clickCount }) // Преобразуем объект в JSON-строку
     })
       .then(response => response.json())
-      .then(data => setClickCount(data[0].count_value))
+      .then(data => {
+        setClickCount(data.item[0].count_value)
+      })
       .catch(error => {
         console.error('Error sending click:', error)
       });
