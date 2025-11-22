@@ -9,7 +9,7 @@ export const App = () => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   // Refs для хранения значений между рендерами
-  const counterRef = useRef(0);
+  const counterRef = useRef(11);
   const currentTimestampRef = useRef(new Date(timestamp).getTime());
 
   useEffect(() => {
