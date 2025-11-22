@@ -4,6 +4,7 @@ import { formatDate, getZhamLabel } from './utils';
 function App() {
   const [timestamp, setTimestamp] = useState('');
   const [clickCount, setClickCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTimestamp = () => {
@@ -26,6 +27,7 @@ function App() {
         .then(response => response.json())
         .then(data => {
           setClickCount(data[0].count_value)
+          setIsLoading(false);
         })
         .catch(error => {
           console.error('Error fetching clicks:', error)
@@ -61,7 +63,7 @@ function App() {
       </div>
       <div>
         <div className="click-me" onClick={handleOnClick}>
-          <h1>{clickCount}</h1>
+          <h1>{isLoading ? '...' : clickCount}</h1>
           <h2>{getZhamLabel(clickCount)}</h2>
         </div>
       </div>
