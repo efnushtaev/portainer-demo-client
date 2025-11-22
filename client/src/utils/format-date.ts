@@ -1,6 +1,6 @@
 export function formatDate(isoString?: string) {
   if(!isoString) {
-    return '12:34:56 • 12 Декабря 1999'
+    return '. . . • . . . . . . .'
   }
   const date = new Date(isoString);
   
@@ -31,7 +31,3 @@ export function formatDate(isoString?: string) {
 
   return `${time} • ${day} ${monthGenitive} ${year}`;
 }
-
-// Пример использования
-// console.log(formatDate('2025-10-23T20:13:48.203Z'));
-// Результат: "20:13:48   23 октября 2025"

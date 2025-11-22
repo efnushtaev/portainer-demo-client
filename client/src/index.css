@@ -35,6 +35,10 @@ code {
     cursor: pointer;
     opacity: 0.8;
   }
+  &[aria-disabled="true"] {
+    opacity: 0.4;
+    pointer-events: none;
+  };
 }
 
 .wrapper {
